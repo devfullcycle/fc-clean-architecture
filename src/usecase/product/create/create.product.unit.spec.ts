@@ -28,4 +28,15 @@ describe("Unit test create product use case", () => {
       price: 20000,
     });
   });
+
+  it("should thrown an error when name is missing", async () => {
+    const productRepository = MockRepository();
+    const productCreateUseCase = new CreateProductUseCase(productRepository);
+
+    productCreateTestingInput.name = "";
+
+    await expect(productCreateUseCase.execute(productCreateTestingInput)).rejects.toThrow(
+      "Name is required"
+    );
+  });
 });
