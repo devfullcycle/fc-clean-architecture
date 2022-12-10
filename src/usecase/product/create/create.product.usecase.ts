@@ -7,6 +7,7 @@ import ProductFactory from "../../../domain/product/factory/product.factory";
 
 export default class CreateProductUseCase {
   private productRepository: ProductRepositoryInterface;
+
   constructor(productRepository: ProductRepositoryInterface) {
     this.productRepository = productRepository;
   }

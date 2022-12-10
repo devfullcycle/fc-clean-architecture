@@ -1,4 +1,5 @@
 import CreateProductUseCase from "./create.product.usecase";
+
 const productCreateTestingInput = {
   type: "a",
   name: "my testing product name",
@@ -22,19 +23,9 @@ describe("Unit test create product use case", () => {
     const output = await productCreateUseCase.execute(productCreateTestingInput);
 
     expect(output).toEqual({
-      name: "my product name",
+      id: expect.any(String),
+      name: "my testing product name",
       price: 20000,
-  });
-
-  it("should thrown an error when name is missing", async () => {
-    const productRepository = MockRepository();
-    const productCreateUseCase = new CreateProductUseCase(productRepository);
-
-    productCreateTestingInput.name = "";
-
-    await expect(productCreateUseCase.execute(productCreateTestingInput)).rejects.toThrow(
-      "Name is required"
-    );
-  });
+    });
   });
 });

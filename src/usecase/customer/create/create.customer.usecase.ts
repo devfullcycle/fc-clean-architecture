@@ -3,7 +3,6 @@ import {
   InputCreateCustomerDto,
   OutputCreateCustomerDto,
 } from "./create.customer.dto";
-import { v4 as uuid } from "uuid";
 import CustomerFactory from "../../../domain/customer/factory/customer.factory";
 import Address from "../../../domain/customer/value-object/address";
 

@@ -7,7 +7,7 @@ export default class ProductFactory {
   public static create(
     type: string,
     name: string,
-    price: number
+    price: number,
   ): ProductInterface {
     switch (type) {
       case "a":
