@@ -1,6 +1,7 @@
 import Product from "../../../domain/product/entity/product";
+import FindProductUseCase from "./find.product.usecase";
 
-const product = new Product("555", "PlayStation5", 4.999);
+const product = new Product("555", "PlayStation 5", 4.999);
 
 const MockRepository = () => {
   return {
@@ -23,7 +24,7 @@ describe("Unit Test find product use case", () => {
 
     const output = {
       id: "555",
-      name: "PlayStataion",
+      name: "PlayStation 5",
       price: 4.999,
     };
 
