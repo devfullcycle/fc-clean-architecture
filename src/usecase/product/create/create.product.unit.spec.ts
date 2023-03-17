@@ -1,3 +1,5 @@
+import CreateProductUseCase from "./create.product.usecase";
+
 const MockRepository = {
   find: jest.fn(),
   findAll: jest.fn(),
@@ -26,7 +28,7 @@ describe("Unit Test Create product use case ", () => {
     });
   });
 
-  it("should throw an error when name is missing", () => {
+  it("should throw an error when name is missing", async () => {
     /* Context */
     const productRepository = MockRepository;
     const productCreateUseCase = new CreateProductUseCase(productRepository);
@@ -35,8 +37,23 @@ describe("Unit Test Create product use case ", () => {
     input.name = "";
 
     /* Assert */
-    expect(async () => {
-      return await productCreateUseCase.execute(input);
-    }).rejects.toThrow("Name is required");
+    await expect(productCreateUseCase.execute(input)).rejects.toThrow(
+      "Name is required"
+    );
+  });
+
+  it("should throw an error when price be less than zero", async () => {
+    /* Context */
+    const productRepository = MockRepository;
+    const productCreateUseCase = new CreateProductUseCase(productRepository);
+
+    /* Act */
+    input.name = "PlayStation 5";
+    input.price = -1;
+
+    /* Assert */
+    await expect(productCreateUseCase.execute(input)).rejects.toThrow(
+      "Price must be greater than zero"
+    );
   });
 });
