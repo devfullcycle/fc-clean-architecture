@@ -1,4 +1,5 @@
 import ProductFactory from "../../../domain/product/factory/product.factory";
+import UpdateProductUseCase from "./update.product.usecase";
 
 const product = ProductFactory.create("a", "PlayStation 5", 4999);
 
@@ -32,7 +33,7 @@ describe("Unit test for product update use case", () => {
 
   it("should throw an error when name is missing", async () => {
     /* Context */
-    const productRepository = MockRepository;
+    const productRepository = MockRepository();
     const productUpdateUseCase = new UpdateProductUseCase(productRepository);
 
     /* Act */
@@ -46,7 +47,7 @@ describe("Unit test for product update use case", () => {
 
   it("should throw an error when price be less than zero", async () => {
     /* Context */
-    const productRepository = MockRepository;
+    const productRepository = MockRepository();
     const productUpdateUseCase = new UpdateProductUseCase(productRepository);
 
     /* Act */
