@@ -45,6 +45,51 @@ describe("Unit test for product update use case", () => {
     );
   });
 
+  it("should update name and price a product", async () => {
+    /* Context */
+    const productRepository = MockRepository();
+    productRepository.find.mockReturnValue(Promise.resolve(product));
+    const productUpdateUseCase = new UpdateProductUseCase(productRepository);
+
+    /* Act */
+    input.name = "PlayStation 5 Slim";
+    input.price = 3999;
+
+    const result = await productUpdateUseCase.execute(input);
+
+    /* Assert */
+    expect(result.name).toBe("PlayStation 5 Slim");
+    expect(result.price).toBe(3999);
+  });
+
+  it("should update name a product", async () => {
+    /* Context */
+    const productRepository = MockRepository();
+    const productUpdateUseCase = new UpdateProductUseCase(productRepository);
+
+    /* Act */
+    input.name = "PlayStation 5 Slim";
+
+    const result = await productUpdateUseCase.execute(input);
+
+    /* Assert */
+    expect(result.name).toBe(input.name);
+  });
+
+  it("should update price a product", async () => {
+    /* Context */
+    const productRepository = MockRepository();
+    const productUpdateUseCase = new UpdateProductUseCase(productRepository);
+
+    /* Act */
+    input.price = 3999;
+
+    const result = await productUpdateUseCase.execute(input);
+
+    /* Assert */
+    expect(result.price).toBe(input.price);
+  });
+
   it("should throw an error when price be less than zero", async () => {
     /* Context */
     const productRepository = MockRepository();

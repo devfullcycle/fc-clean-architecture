@@ -25,15 +25,64 @@ describe("Test update product use case", () => {
     await sequelize.close();
   });
 
-  it("should update a product", async () => {
+  it("should update name and price a product", async () => {
     /* Context */
     const productRepository = new ProductRepository();
-    const usecase = new FindProductUseCase(productRepository);
+    const usecase = new UpdateProductUseCase(productRepository);
+    const product = ProductFactory.create("a", "Xbox Series S", 2700);
+
+    const input = {
+      id: product.id,
+      name: "Xbox Series X",
+      price: 4800,
+    };
+
+    /* Act */
+    productRepository.create(product as Product);
+
+    const output = await usecase.execute(input);
+
+    /* Assert */
+    expect(output).toEqual({
+      id: expect.any(String),
+      name: input.name,
+      price: input.price,
+    });
+  });
+
+  it("should update name a product", async () => {
+    /* Context */
+    const productRepository = new ProductRepository();
+    const usecase = new UpdateProductUseCase(productRepository);
+    const product = ProductFactory.create("a", "Xbox Series S", 2700);
+    const input = {
+      id: product.id,
+      name: "Xbox Series S 2021",
+      price: 2700,
+    };
+
+    /* Act */
+    productRepository.create(product as Product);
+
+    const output = await usecase.execute(input);
+
+    /* Assert */
+    expect(output).toEqual({
+      id: expect.any(String),
+      name: input.name,
+      price: input.price,
+    });
+  });
+
+  it("should update price a product", async () => {
+    /* Context */
+    const productRepository = new ProductRepository();
+    const usecase = new UpdateProductUseCase(productRepository);
     const product = ProductFactory.create("a", "Xbox Series S", 2700);
     const input = {
       id: product.id,
       name: "Xbox Series S",
-      price: 2700,
+      price: 2600,
     };
 
     /* Act */
