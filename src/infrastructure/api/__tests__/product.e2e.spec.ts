@@ -31,11 +31,11 @@ describe("E2E test for product", () => {
 
   it("should find a product", async () => {
     const productRepository = new ProductRepository();
-    const listUseCase = new CreateProductUseCase(productRepository);
+    const createUseCase = new CreateProductUseCase(productRepository);
 
     const input = { name: "Product 1", price: 100 };
 
-    const output = await listUseCase.execute(input);
+    const output = await createUseCase.execute(input);
 
     const response = await await request(app).get(`/product/${output.id}`);
 
@@ -43,5 +43,19 @@ describe("E2E test for product", () => {
     expect(response.body.id).toBe(output.id);
     expect(response.body.name).toBe(output.name);
     expect(response.body.price).toBe(output.price);
+  });
+
+  it("should list products", async () => {
+    const productRepository = new ProductRepository();
+    const createUseCase = new CreateProductUseCase(productRepository);
+
+    const input = { name: "Product 1", price: 100 };
+
+    await createUseCase.execute(input);
+
+    const response = await request(app).get("/product");
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
   });
 });
