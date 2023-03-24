@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import CreateProductUseCase from "../../../usecase/product/create/create.product.usecase";
 import { OutputFindProductDto } from "../../../usecase/product/find/find.product.dto";
 import FindProductUseCase from "../../../usecase/product/find/find.product.usecase";
+import { OutputListProductDto } from "../../../usecase/product/list/list.product.dto";
 import ListProductUseCase from "../../../usecase/product/list/list.product.usecase";
 import ProductRepository from "../../product/repository/sequelize/product.repository";
 
@@ -21,6 +22,15 @@ productRouter.post("/", async (req: Request, res: Response) => {
   } catch (err) {
     res.status(501).send(err);
   }
+});
+
+productRouter.get("/", async (req: Request, res: Response) => {
+  const usecase = new ListProductUseCase(new ProductRepository());
+
+  const output: OutputListProductDto = await usecase.execute({});
+  console.log(output);
+  
+  res.status(200).send(output);
 });
 
 productRouter.get("/:id", async (req: Request, res: Response) => {

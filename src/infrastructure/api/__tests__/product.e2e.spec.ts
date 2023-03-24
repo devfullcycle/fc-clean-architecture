@@ -56,6 +56,13 @@ describe("E2E test for product", () => {
     const response = await request(app).get("/product");
 
     expect(response.status).toBe(200);
-    expect(response.body.length).toBe(1);
+    expect(response.body.products.length).toBe(1);
+  });
+
+  it("should list empty products", async () => {
+    const response = await request(app).get("/product");
+
+    expect(response.status).toBe(200);
+    expect(response.body.products.length).toBe(0);
   });
 });
