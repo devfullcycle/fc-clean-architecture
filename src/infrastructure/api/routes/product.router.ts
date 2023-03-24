@@ -1,5 +1,8 @@
 import express, { Request, Response } from "express";
 import CreateProductUseCase from "../../../usecase/product/create/create.product.usecase";
+import { OutputFindProductDto } from "../../../usecase/product/find/find.product.dto";
+import FindProductUseCase from "../../../usecase/product/find/find.product.usecase";
+import ListProductUseCase from "../../../usecase/product/list/list.product.usecase";
 import ProductRepository from "../../product/repository/sequelize/product.repository";
 
 export const productRouter = express.Router();
@@ -18,4 +21,16 @@ productRouter.post("/", async (req: Request, res: Response) => {
   } catch (err) {
     res.status(501).send(err);
   }
+});
+
+productRouter.get("/:id", async (req: Request, res: Response) => {
+  const InputFindProductDto = { id: req.params.id };
+
+  const usecase = new FindProductUseCase(new ProductRepository());
+
+  const output: OutputFindProductDto = await usecase.execute(
+    InputFindProductDto
+  );
+
+  res.status(200).send(output);
 });

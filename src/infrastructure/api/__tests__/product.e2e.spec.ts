@@ -29,7 +29,7 @@ describe("E2E test for product", () => {
     expect(response.status).toBe(501);
   });
 
-  it("should list a product", async () => {
+  it("should find a product", async () => {
     const productRepository = new ProductRepository();
     const listUseCase = new CreateProductUseCase(productRepository);
 
@@ -37,7 +37,7 @@ describe("E2E test for product", () => {
 
     const output = await listUseCase.execute(input);
 
-    const response = await (await request(app).get(`/product/${output.id}`));
+    const response = await await request(app).get(`/product/${output.id}`);
 
     expect(response.status).toBe(200);
     expect(response.body.id).toBe(output.id);
