@@ -1,77 +1,76 @@
-import CreateProductUseCase from "./create.product.usecase";
+import CreateProductUseCase from './create.product.usecase'
 
 const MockRepository = () => {
   return {
     find: jest.fn(),
     findAll: jest.fn(),
     create: jest.fn(),
-    update: jest.fn(),
-  };
-};
+    update: jest.fn()
+  }
+}
 
-describe("Unit test create product use case", () => {
-
-  it("should create a product", async () => {
-    const productRepository = MockRepository();
-    const productCreateUseCase = new CreateProductUseCase(productRepository);
+describe('Unit test create product use case', () => {
+  it('should create a product', async () => {
+    const productRepository = MockRepository()
+    const productCreateUseCase = new CreateProductUseCase(productRepository)
 
     const input = {
-      name: "Product 1",
+      name: 'Product 1',
       price: 10,
-      type: "a",
-    };
+      type: 'a'
+    }
 
-    const output = await productCreateUseCase.execute(input);
+    const output = await productCreateUseCase.execute(input)
 
     expect(output).toEqual({
       id: expect.any(String),
       name: input.name,
-      price: input.price,
-    });
-  });
+      price: input.price
+    })
+  })
 
-  it("should thrown an error when type is not a or b", async () => {
-    const customerRepository = MockRepository();
-    const customerCreateUseCase = new CreateProductUseCase(customerRepository);
+  it('should thrown an error when type is not a or b', async () => {
+    const customerRepository = MockRepository()
+    const customerCreateUseCase = new CreateProductUseCase(customerRepository)
 
     const input = {
-      name: "Product 1",
+      name: 'Product 1',
       price: 10,
-      type: "c",
-    };
+      type: 'c'
+    }
 
     await expect(customerCreateUseCase.execute(input)).rejects.toThrow(
-      "Product type not supported"
-    );
-  });
+      'Product type not supported'
+    )
+  })
 
-  it("should thrown an error when price is negative", async () => {
-    const customerRepository = MockRepository();
-    const customerCreateUseCase = new CreateProductUseCase(customerRepository);
+  it('should thrown an error when price is negative', async () => {
+    const customerRepository = MockRepository()
+    const customerCreateUseCase = new CreateProductUseCase(customerRepository)
 
     const input = {
-      name: "Product 1",
+      name: 'Product 1',
       price: -10,
-      type: "b",
-    };
-  
-    await expect(customerCreateUseCase.execute(input)).rejects.toThrow(
-      "Price must be greater than zero"
-    );
-  });
+      type: 'b'
+    }
 
-  it("should thrown an error when name is missing", async () => {
-    const customerRepository = MockRepository();
-    const customerCreateUseCase = new CreateProductUseCase(customerRepository);
+    await expect(customerCreateUseCase.execute(input)).rejects.toThrow(
+      'Price must be greater than zero'
+    )
+  })
+
+  it('should thrown an error when name is missing', async () => {
+    const customerRepository = MockRepository()
+    const customerCreateUseCase = new CreateProductUseCase(customerRepository)
 
     const input = {
-      name: "",
+      name: '',
       price: 10,
-      type: "b",
-    };
+      type: 'b'
+    }
 
     await expect(customerCreateUseCase.execute(input)).rejects.toThrow(
-      "Name is required"
-    );
-  });
-});
+      'Name is required'
+    )
+  })
+})

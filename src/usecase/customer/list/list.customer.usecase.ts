@@ -1,24 +1,24 @@
-import Customer from "../../../domain/customer/entity/customer";
-import CustomerRepositoryInterface from "../../../domain/customer/repository/customer-repository.interface";
+import type Customer from '../../../domain/customer/entity/customer'
+import type CustomerRepositoryInterface from '../../../domain/customer/repository/customer-repository.interface'
 import {
-  InputListCustomerDto,
-  OutputListCustomerDto,
-} from "./list.customer.dto";
+  type InputListCustomerDto,
+  type OutputListCustomerDto
+} from './list.customer.dto'
 
 export default class ListCustomerUseCase {
-  private customerRepository: CustomerRepositoryInterface;
-  constructor(CustomerRepository: CustomerRepositoryInterface) {
-    this.customerRepository = CustomerRepository;
+  private readonly customerRepository: CustomerRepositoryInterface
+  constructor (CustomerRepository: CustomerRepositoryInterface) {
+    this.customerRepository = CustomerRepository
   }
 
-  async execute(input: InputListCustomerDto): Promise<OutputListCustomerDto> {
-    const customers = await this.customerRepository.findAll();
-    return OutputMapper.toOutput(customers);
+  async execute (input: InputListCustomerDto): Promise<OutputListCustomerDto> {
+    const customers = await this.customerRepository.findAll()
+    return OutputMapper.toOutput(customers)
   }
 }
 
 class OutputMapper {
-  static toOutput(customer: Customer[]): OutputListCustomerDto {
+  static toOutput (customer: Customer[]): OutputListCustomerDto {
     return {
       customers: customer.map((customer) => ({
         id: customer.id,
@@ -27,9 +27,9 @@ class OutputMapper {
           street: customer.Address.street,
           number: customer.Address.number,
           zip: customer.Address.zip,
-          city: customer.Address.city,
-        },
-      })),
-    };
+          city: customer.Address.city
+        }
+      }))
+    }
   }
 }

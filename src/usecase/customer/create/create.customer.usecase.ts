@@ -1,20 +1,20 @@
-import CustomerRepositoryInterface from "../../../domain/customer/repository/customer-repository.interface";
+import type CustomerRepositoryInterface from '../../../domain/customer/repository/customer-repository.interface'
 import {
-  InputCreateCustomerDto,
-  OutputCreateCustomerDto,
-} from "./create.customer.dto";
-import { v4 as uuid } from "uuid";
-import CustomerFactory from "../../../domain/customer/factory/customer.factory";
-import Address from "../../../domain/customer/value-object/address";
+  type InputCreateCustomerDto,
+  type OutputCreateCustomerDto
+} from './create.customer.dto'
+import { v4 as uuid } from 'uuid'
+import CustomerFactory from '../../../domain/customer/factory/customer.factory'
+import Address from '../../../domain/customer/value-object/address'
 
 export default class CreateCustomerUseCase {
-  private customerRepository: CustomerRepositoryInterface;
+  private readonly customerRepository: CustomerRepositoryInterface
 
-  constructor(customerRepository: CustomerRepositoryInterface) {
-    this.customerRepository = customerRepository;
+  constructor (customerRepository: CustomerRepositoryInterface) {
+    this.customerRepository = customerRepository
   }
 
-  async execute(
+  async execute (
     input: InputCreateCustomerDto
   ): Promise<OutputCreateCustomerDto> {
     const customer = CustomerFactory.createWithAddress(
@@ -25,9 +25,9 @@ export default class CreateCustomerUseCase {
         input.address.zip,
         input.address.city
       )
-    );
+    )
 
-    await this.customerRepository.create(customer);
+    await this.customerRepository.create(customer)
 
     return {
       id: customer.id,
@@ -36,8 +36,8 @@ export default class CreateCustomerUseCase {
         street: customer.Address.street,
         number: customer.Address.number,
         zip: customer.Address.zip,
-        city: customer.Address.city,
-      },
-    };
+        city: customer.Address.city
+      }
+    }
   }
 }

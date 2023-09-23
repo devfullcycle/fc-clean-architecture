@@ -1,18 +1,18 @@
-import CustomerRepositoryInterface from "../../../domain/customer/repository/customer-repository.interface";
+import type CustomerRepositoryInterface from '../../../domain/customer/repository/customer-repository.interface'
 import {
-  InputFindCustomerDto,
-  OutputFindCustomerDto,
-} from "./find.customer.dto";
+  type InputFindCustomerDto,
+  type OutputFindCustomerDto
+} from './find.customer.dto'
 
 export default class FindCustomerUseCase {
-  private customerRepository: CustomerRepositoryInterface;
+  private readonly customerRepository: CustomerRepositoryInterface
 
-  constructor(customerRepository: CustomerRepositoryInterface) {
-    this.customerRepository = customerRepository;
+  constructor (customerRepository: CustomerRepositoryInterface) {
+    this.customerRepository = customerRepository
   }
 
-  async execute(input: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
-    const customer = await this.customerRepository.find(input.id);
+  async execute (input: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
+    const customer = await this.customerRepository.find(input.id)
 
     return {
       id: customer.id,
@@ -21,8 +21,8 @@ export default class FindCustomerUseCase {
         street: customer.Address.street,
         city: customer.Address.city,
         number: customer.Address.number,
-        zip: customer.Address.zip,
-      },
-    };
+        zip: customer.Address.zip
+      }
+    }
   }
 }

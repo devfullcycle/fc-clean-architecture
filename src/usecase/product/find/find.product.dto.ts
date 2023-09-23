@@ -1,9 +1,9 @@
 export interface InputFindProductDto {
-    id: string;
-  }
-  
+  id: string
+}
+
 export interface OutputFindProductDto {
-    id: string;
-    name: string;
-    price: number;
+  id: string
+  name: string
+  price: number
 }
